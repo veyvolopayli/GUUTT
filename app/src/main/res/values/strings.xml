@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">GUUTT</string>
+    <string name="main">Главная</string>
+    <string name="settings">Настройки</string>
+    <string name="lz">ЛЗ</string>
+    <string name="program_engenering">Программная инженерия</string>
+    <string name="classroom_example">ЛЗ-106</string>
+    <string name="edward_snowden">Эдвард Сноуден</string>
+    <string name="time_template">11:35-13:05</string>
+</resources>
