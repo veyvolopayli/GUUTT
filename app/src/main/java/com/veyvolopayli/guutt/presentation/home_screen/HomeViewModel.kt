@@ -18,17 +18,17 @@ class HomeViewModel : ViewModel() {
                 Lesson(type = "ЛЗ", lessonTime = "11:35-13:05", lessonName = "Программная инженерия", classroom = "ЛК-409", lessonProfessorFullName = "Алексей Глазков", week = 4),
                 Lesson(type = "ЛЗ", lessonTime = "11:35-13:05", lessonName = "Программная инженерия", classroom = "ЛК-409", lessonProfessorFullName = "Алексей Глазков", week = 4),
                 Lesson(type = "ЛЗ", lessonTime = "11:35-13:05", lessonName = "Программная инженерия", classroom = "ЛК-409", lessonProfessorFullName = "Алексей Глазков", week = 4)
-            )),
+            ), weekPosition = 0, weekType = 1),
             Day(date = "01.10.2023", dayOfWeek = "Четверг", lessons = listOf(
                 Lesson(type = "ЛЗ", lessonTime = "11:35-13:05", lessonName = "Программная инженерия", classroom = "ЛК-409", lessonProfessorFullName = "Алексей Глазков", week = 4),
                 Lesson(type = "ЛЗ", lessonTime = "11:35-13:05", lessonName = "Программная инженерия", classroom = "ЛК-409", lessonProfessorFullName = "Алексей Глазков", week = 4),
-            )),
+            ), weekPosition = 0, weekType = 1),
             Day(date = "01.10.2023", dayOfWeek = "Четверг", lessons = listOf(
                 Lesson(type = "ЛЗ", lessonTime = "11:35-13:05", lessonName = "Программная инженерия", classroom = "ЛК-409", lessonProfessorFullName = "Алексей Глазков", week = 4),
                 Lesson(type = "ЛЗ", lessonTime = "11:35-13:05", lessonName = "Программная инженерия", classroom = "ЛК-409", lessonProfessorFullName = "Алексей Глазков", week = 4),
                 Lesson(type = "ЛЗ", lessonTime = "11:35-13:05", lessonName = "Программная инженерия", classroom = "ЛК-409", lessonProfessorFullName = "Алексей Глазков", week = 4),
                 Lesson(type = "ЛЗ", lessonTime = "11:35-13:05", lessonName = "Программная инженерия", classroom = "ЛК-409", lessonProfessorFullName = "Алексей Глазков", week = 4)
-            ))
+            ), weekPosition = 0, weekType = 1)
         )
 
         _daysState.value = days
