@@ -24,7 +24,7 @@ class LessonsAdapter(private val lessons: List<Lesson>) : RecyclerView.Adapter<L
             lessonType.text = lesson.type
             lessonName.text = lesson.lessonName
             classroom.text = lesson.classroom
-            professorName.text = lesson.lessonProfessorFullName
+            professorName.text = lesson.professorFullName
             time.text = lesson.lessonTime
         }
     }

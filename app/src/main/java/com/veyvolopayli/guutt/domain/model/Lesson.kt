@@ -6,7 +6,7 @@ data class Lesson(
     val id: String = UUID.randomUUID().toString(),
     val lessonTime: String,
     val lessonName: String,
-    val lessonProfessorFullName: String,
+    val professorFullName: String,
     val classroom: String,
     val week: Int,
     val type: String

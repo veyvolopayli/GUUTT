@@ -12,7 +12,7 @@ import java.util.UUID
 @Parcelize
 data class Day(
     val id: String = UUID.randomUUID().toString(),
-    val date: String,
+//    val date: String,
     val lessons: @RawValue List<Lesson>,
     val weekType: Int, // 1 если нечетная, 2 если четная
     val weekPosition: Int,
@@ -31,7 +31,7 @@ data class Day(
     fun toParsed(): ParsedDay {
         return ParsedDay(
             id = this.id,
-            date = this.date,
+//            date = this.date,
             lessons = Json.encodeToString(this.lessons),
             weekType = this.weekType,
             weekPosition = this.weekPosition,

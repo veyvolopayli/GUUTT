@@ -7,4 +7,8 @@
     <string name="classroom_example">ЛЗ-106</string>
     <string name="edward_snowden">Эдвард Сноуден</string>
     <string name="time_template">11:35-13:05</string>
+    <string name="lesson">Предмет</string>
+    <string name="professor_name">Имя профессора</string>
+    <string name="classroom">Кабинет</string>
+    <string name="type">Тип</string>
 </resources>
