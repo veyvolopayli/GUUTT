@@ -11,4 +11,8 @@
     <string name="professor_name">Имя профессора</string>
     <string name="classroom">Кабинет</string>
     <string name="type">Тип</string>
+    <string name="sign_in">Войти</string>
+    <string name="login">Логин</string>
+    <string name="password">Пароль</string>
+    <string name="captcha">Код с картинки</string>
 </resources>

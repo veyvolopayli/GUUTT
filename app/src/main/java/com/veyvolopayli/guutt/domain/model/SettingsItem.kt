@@ -6,8 +6,9 @@ sealed class SettingsItem {
         val lessonName: String = "",
         val professorFullName: String = "",
         val classroom: String = "",
-        val week: Int,
-        val lessonType: String = ""
+        val week: Int = 0,
+        val lessonType: String = "",
+        val weekPosition: Int
     ) : SettingsItem()
     data class Header(val title: String) : SettingsItem()
 }
