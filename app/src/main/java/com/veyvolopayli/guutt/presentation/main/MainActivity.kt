@@ -29,9 +29,9 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomNavigationView.setupWithNavController(navController)
 
-        supportFragmentManager.commit {
+        /*supportFragmentManager.commit {
             replace(binding.fragmentContainer.id, SignInFragment())
-        }
+        }*/
     }
 
     override fun onDestroy() {

@@ -9,7 +9,6 @@ import com.veyvolopayli.guutt.R
 import com.veyvolopayli.guutt.common.parcelable
 import com.veyvolopayli.guutt.databinding.FragmentDayBinding
 import com.veyvolopayli.guutt.domain.model.Day
-import com.veyvolopayli.guutt.domain.model.Day2
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
@@ -22,7 +21,7 @@ class DayFragment() : Fragment(R.layout.fragment_day) {
         val binding = FragmentDayBinding.bind(view)
         this.binding = binding
 
-        val day = arguments?.parcelable<Day2>("day")
+        val day = arguments?.parcelable<Day>("day")
 
         if (day != null) {
             val adapter = LessonsAdapter(day.classes)

@@ -14,8 +14,8 @@ data class ParsedDay(
     val weekPosition: Int,
     val dayOfWeek: String
 ) {
-    fun toDay(): Day {
-        return Day(
+    fun toDay(): Day3 {
+        return Day3(
             id = this.id,
 //            date = this.date,
             lessons = Json.decodeFromString<List<Lesson>>(this.lessons),

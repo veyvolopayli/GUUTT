@@ -1,25 +1,25 @@
 package com.veyvolopayli.guutt.data.repository
 
 import com.veyvolopayli.guutt.data.data_source.DayDAO
-import com.veyvolopayli.guutt.domain.model.Day
+import com.veyvolopayli.guutt.domain.model.Day3
 import com.veyvolopayli.guutt.domain.repository.DayRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class DayRepositoryImpl(private val dao: DayDAO) : DayRepository {
-    override suspend fun insertDay(day: Day) {
-        dao.insertDay(day.toParsed())
+    override suspend fun insertDay(day3: Day3) {
+        dao.insertDay(day3.toParsed())
     }
 
-    override suspend fun getDay(id: String): Day {
+    override suspend fun getDay(id: String): Day3 {
         return dao.getDay(id).toDay()
     }
 
-    override suspend fun deleteDay(day: Day) {
-        dao.deleteDay(day.toParsed())
+    override suspend fun deleteDay(day3: Day3) {
+        dao.deleteDay(day3.toParsed())
     }
 
-    override fun getAllDays(): Flow<List<Day>> {
+    override fun getAllDays(): Flow<List<Day3>> {
         return dao.getAllDays().map { parsedDays ->
             parsedDays.map { parsedDay ->
                 parsedDay.toDay()

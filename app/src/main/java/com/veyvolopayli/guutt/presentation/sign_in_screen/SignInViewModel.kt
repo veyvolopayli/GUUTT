@@ -27,6 +27,9 @@ class SignInViewModel @Inject constructor(
     private val _captcha = MutableLiveData<Bitmap>()
     val captcha: LiveData<Bitmap> = _captcha
 
+    private val _isAuthorized = MutableLiveData<Boolean>()
+    val isAuthorized: LiveData<Boolean> = _isAuthorized
+
     fun setSecure(_csrf: String, csrfToken: String, captchaPath: String, cookies: String) {
         _signInSecurityState.value = _signInSecurityState.value?.copy(
             _csrf = _csrf, csrfToken = csrfToken, captchaPath = captchaPath, cookies = cookies
@@ -58,5 +61,7 @@ class SignInViewModel @Inject constructor(
             }
         }.launchIn(viewModelScope)
     }
+
+
 
 }

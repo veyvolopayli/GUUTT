@@ -1,10 +1,13 @@
 package com.veyvolopayli.guutt.domain.usecases
 
 import android.util.Log
+import com.veyvolopayli.guutt.common.Constants
 import com.veyvolopayli.guutt.domain.model.ClassDescription
+import com.veyvolopayli.guutt.domain.model.Day
 import com.veyvolopayli.guutt.domain.model.UniversityClass
 import com.veyvolopayli.guutt.domain.model.UniversityClassDto
 import com.veyvolopayli.guutt.domain.repository.MainRepository
+import com.veyvolopayli.guutt.domain.repository.PrefsRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.serialization.json.Json
@@ -13,32 +16,35 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
 import java.lang.Exception
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.util.regex.Pattern
 import javax.inject.Inject
 
 class GetClassesUseCase @Inject constructor(
-    private val repository: MainRepository
+    private val repository: MainRepository,
+    private val prefs: PrefsRepository
 ) {
-    operator fun invoke(): Flow<List<List<UniversityClass>>?> = flow {
+    operator fun invoke(): Flow<List<Day>?> = flow {
         try {
-            val response =
-                repository.getClasses("PHPSESSID=2341mjbkgtbatcaiee6jh5lqd2tkcrnr; _csrf=26f86f93a3cd25b363694715f0469d036e75e20871b0b3aee3b8ebcd10e5bacaa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22KD74HWCkd3cEQtD58NYaHc3JVB9VPsTH%22%3B%7D; modal_mess=2e2e2d42a8ccfdfc06500ab24ea5a50ab0be5681449b0e01e7ac8734f1492050a%3A2%3A%7Bi%3A0%3Bs%3A10%3A%22modal_mess%22%3Bi%3A1%3Bs%3A10%3A%222023-10-13%22%3B%7D; session-cookie=178db9e9dff9f54f3863fc6d18991a243f779959478b04fa805283073c86fb8d31dafa52f79cbe739d7ec8a082784e5d")
+            val cookie = prefs.getString(Constants.COOKIE) ?: run {
+                emit(null)
+                return@flow
+            }
+            val response = repository.getClasses(cookie)
             val htmlData = response.body()?.string() ?: run {
                 Log.e("ERROR", "${response.code()} ${response.message()} ${response.errorBody()}")
                 throw Exception("Failed")
             }
-            val cookie = response.headers()
-            Log.e("Response cookies", cookie.toString())
+//            val cookie = response.headers()
+//            Log.e("Response cookies", cookie.toString())
             val doc = Jsoup.parse(htmlData)
 
-            // Find the script tag containing the "events" data
             val scriptElement: Element? = doc.select("script:containsData(events)").first()
 
             if (scriptElement != null) {
                 // Extract the content of the script tag
                 val scriptContent = scriptElement.data()
 
-                // Assuming the "events" data is in a JavaScript object, you can use a regular expression to extract it
                 val pattern = "events : (\\[.*\\])"
                 val matcher = Regex(pattern).find(scriptContent)
 
@@ -73,7 +79,9 @@ class GetClassesUseCase @Inject constructor(
                                 )
                             }
                         }.filter { !it.start.contains("2021") && !it.start.contains("2022") }.sortedBy { it.start }
-                    emit(groupClasses(classes))
+                    emit(fillGaps(groupClasses(classes)))
+                    /*println(groupClasses(classes))
+                    println(getListOfDates())*/
                 } else {
                     println("Events data not found")
                     emit(null)
@@ -108,6 +116,23 @@ class GetClassesUseCase @Inject constructor(
         }
 
         return days
+    }
+
+    private fun fillGaps(classesWithGaps: List<List<UniversityClass>>): List<Day> {
+        val fullyList = arrayListOf<Day>()
+        getListOfDates().forEach { date ->
+            val dayClasses = classesWithGaps.firstOrNull {
+                val startDateTime = it.first().start
+                val classDate = LocalDateTime.parse(startDateTime).toLocalDate()
+                date.isEqual(classDate)
+            }
+            if (dayClasses != null) {
+                fullyList.add(Day(date = date, classes = dayClasses))
+            } else {
+                fullyList.add(Day(date = date, classes = emptyList()))
+            }
+        }
+        return fullyList
     }
 
 }

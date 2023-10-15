@@ -5,11 +5,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.veyvolopayli.guutt.domain.model.Day
-import com.veyvolopayli.guutt.domain.model.Day2
 import com.veyvolopayli.guutt.presentation.day_screen.DayFragment
 
 class HomeViewPagerAdapter(activity: FragmentActivity) : FragmentStateAdapter(activity) {
-    private var days = listOf<Day2>()
+    private var days = listOf<Day>()
 
     override fun getItemCount(): Int = days.size
 
@@ -21,7 +20,7 @@ class HomeViewPagerAdapter(activity: FragmentActivity) : FragmentStateAdapter(ac
         return dayFragment
     }
 
-    fun setDays(days: List<Day2>) {
+    fun setDays(days: List<Day>) {
         this.days = days
         notifyDataSetChanged()
     }

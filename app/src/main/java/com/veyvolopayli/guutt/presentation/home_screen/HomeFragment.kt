@@ -12,6 +12,7 @@ import com.veyvolopayli.guutt.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 import org.apache.commons.lang3.StringEscapeUtils
 import org.jsoup.Jsoup
+import java.time.LocalDate
 
 //@HiltAndroidApp
 @AndroidEntryPoint
@@ -30,7 +31,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             val homeViewPagerAdapter = HomeViewPagerAdapter(requireActivity())
             homeViewPagerAdapter.setDays(days)
             binding.viewPager.adapter = homeViewPagerAdapter
-            binding.viewPager.setCurrentItem(12, true)
+            val currentDate = LocalDate.now()
+            val currentPosition = days.indexOfFirst { it.date.isEqual(currentDate) }
+            binding.viewPager.setCurrentItem(currentPosition, false)
+//            binding.viewPager.setCurrentItem(12, true)
         }
 
     }

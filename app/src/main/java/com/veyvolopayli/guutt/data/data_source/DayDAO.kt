@@ -4,7 +4,6 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Query
 import androidx.room.Upsert
-import com.veyvolopayli.guutt.domain.model.Day
 import com.veyvolopayli.guutt.domain.model.ParsedDay
 import kotlinx.coroutines.flow.Flow
 

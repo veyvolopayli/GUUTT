@@ -1,6 +1,8 @@
 package com.veyvolopayli.guutt.di
 
 import android.app.Application
+import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences
 import androidx.room.Room
 import com.google.gson.GsonBuilder
 import com.veyvolopayli.guutt.common.Constants
@@ -8,7 +10,9 @@ import com.veyvolopayli.guutt.data.data_source.DayDatabase
 import com.veyvolopayli.guutt.data.remote.GuuApi
 import com.veyvolopayli.guutt.data.repository.DayRepositoryImpl
 import com.veyvolopayli.guutt.data.repository.MainRepositoryImpl
+import com.veyvolopayli.guutt.data.repository.PrefsRepositoryImpl
 import com.veyvolopayli.guutt.domain.repository.MainRepository
+import com.veyvolopayli.guutt.domain.repository.PrefsRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -55,5 +59,17 @@ object AppModule {
     @Singleton
     fun provideMainRepository(api: GuuApi): MainRepository {
         return MainRepositoryImpl(api)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSharedPreferences(app: Application): SharedPreferences {
+        return app.getSharedPreferences("prefs", MODE_PRIVATE)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSharedPrefsRepository(prefs: SharedPreferences): PrefsRepository {
+        return PrefsRepositoryImpl(prefs)
     }
 }

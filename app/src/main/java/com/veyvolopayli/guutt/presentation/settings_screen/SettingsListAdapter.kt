@@ -4,9 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.veyvolopayli.guutt.databinding.ItemSettingsBinding
-import com.veyvolopayli.guutt.domain.model.Day
+import com.veyvolopayli.guutt.domain.model.Day3
 import com.veyvolopayli.guutt.domain.model.SettingsItem
-import com.veyvolopayli.guutt.presentation.day_screen.LessonsAdapter
 
 class SettingsListAdapter : RecyclerView.Adapter<SettingsListAdapter.LessonSettingsViewHolder>() {
     var data = listOf<SettingsItem>()
@@ -28,7 +27,7 @@ class SettingsListAdapter : RecyclerView.Adapter<SettingsListAdapter.LessonSetti
         }
     }
 
-    fun setDataFromDb(days: List<Day>) {
+    fun setDataFromDb(day3s: List<Day3>) {
 
     }
 }
