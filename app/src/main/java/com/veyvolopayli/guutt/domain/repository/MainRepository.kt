@@ -1,17 +1,10 @@
 package com.veyvolopayli.guutt.domain.repository
 
-import com.veyvolopayli.guutt.domain.model.sign_in.SignInRequest
-import okhttp3.ResponseBody
+import com.veyvolopayli.guutt.domain.model.ClassObject
 import retrofit2.Response
 
 interface MainRepository {
+    suspend fun getGroups(): Response<List<String>>
 
-    suspend fun getDataForAuthorization(): Response<ResponseBody>
-
-    suspend fun signIn(signInRequest: SignInRequest, cookie: String): Response<ResponseBody>
-
-    suspend fun getClasses(cookie: String): Response<ResponseBody>
-
-    suspend fun getCaptchaImage(v: String): Response<ResponseBody>
-
+    suspend fun getClasses(group: String): Map<String, List<ClassObject>>
 }

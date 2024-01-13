@@ -8,6 +8,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.veyvolopayli.guutt.R
 import com.veyvolopayli.guutt.databinding.ActivityMainBinding
+import com.veyvolopayli.guutt.presentation.choose_group_screen.ChooseGroupFragment
 import com.veyvolopayli.guutt.presentation.sign_in_screen.SignInFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -30,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigationView.setupWithNavController(navController)
 
         /*supportFragmentManager.commit {
-            replace(binding.fragmentContainer.id, SignInFragment())
+            replace(binding.fragmentContainer.id, ChooseGroupFragment())
         }*/
     }
 

@@ -1,6 +1,9 @@
 package com.veyvolopayli.guutt.domain.model
 
-data class UniversityClass(
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class ClassObject(
     val id: Long,
     val title: String,
     val color: String,

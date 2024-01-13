@@ -7,7 +7,7 @@ import androidx.room.Room
 import com.google.gson.GsonBuilder
 import com.veyvolopayli.guutt.common.Constants
 import com.veyvolopayli.guutt.data.data_source.DayDatabase
-import com.veyvolopayli.guutt.data.remote.GuuApi
+import com.veyvolopayli.guutt.data.remote.GuuTtApi
 import com.veyvolopayli.guutt.data.repository.DayRepositoryImpl
 import com.veyvolopayli.guutt.data.repository.MainRepositoryImpl
 import com.veyvolopayli.guutt.data.repository.PrefsRepositoryImpl
@@ -44,20 +44,20 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideGuuApi(): GuuApi {
+    fun provideGuuApi(): GuuTtApi {
         return Retrofit
             .Builder()
-            .baseUrl(Constants.BASE_URL)
+            .baseUrl(Constants.LOCALHOST)
             .client(OkHttpClient.Builder().followRedirects(true).followSslRedirects(true).build())
             .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().disableHtmlEscaping().create()))
             .build()
-            .create(GuuApi::class.java)
+            .create(GuuTtApi::class.java)
     }
 
     @Provides
     @Singleton
-    fun provideMainRepository(api: GuuApi): MainRepository {
+    fun provideMainRepository(api: GuuTtApi): MainRepository {
         return MainRepositoryImpl(api)
     }
 

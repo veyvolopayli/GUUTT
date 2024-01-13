@@ -8,5 +8,5 @@ import java.time.LocalDate
 @Parcelize
 data class Day(
     val date: LocalDate,
-    val classes: @RawValue List<UniversityClass>
+    val classes: @RawValue List<ClassObject>
 ) : Parcelable

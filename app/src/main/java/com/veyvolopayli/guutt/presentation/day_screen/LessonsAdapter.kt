@@ -5,12 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.veyvolopayli.guutt.databinding.ItemLessonBinding
-import com.veyvolopayli.guutt.domain.model.UniversityClass
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.temporal.TemporalField
+import com.veyvolopayli.guutt.domain.model.ClassObject
 
-class LessonsAdapter(private val classes: List<UniversityClass>) :
+class LessonsAdapter(private val classes: List<ClassObject>) :
     RecyclerView.Adapter<LessonsAdapter.LessonViewHolder>() {
 
     class LessonViewHolder(val binding: ItemLessonBinding) : RecyclerView.ViewHolder(binding.root)
