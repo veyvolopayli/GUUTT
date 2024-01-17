@@ -9,7 +9,7 @@ import javax.inject.Inject
 class MainRepositoryImpl @Inject constructor(
     private val guuTtApi: GuuTtApi
 ): MainRepository {
-    override suspend fun getGroups(): Response<List<String>> {
+    override suspend fun getGroups(): List<String> {
         return guuTtApi.getGroups()
     }
 

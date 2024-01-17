@@ -27,7 +27,7 @@ class ChooseGroupFragment : Fragment(R.layout.fragment_choose_group) {
             val groupsAdapter = ArrayAdapter(requireContext(), R.layout.item_group, groups)
             binding.enterGroupTv.apply {
                 setAdapter(groupsAdapter)
-                showDropDown()
+//                showDropDown()
             }
         }
 

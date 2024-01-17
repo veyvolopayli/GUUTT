@@ -8,7 +8,7 @@ import retrofit2.http.Query
 
 interface GuuTtApi {
     @GET("groups")
-    suspend fun getGroups(): Response<List<String>>
+    suspend fun getGroups(): List<String>
 
     @GET("classes")
     suspend fun getClasses(@Query("g") group: String): Map<String, List<ClassObject>>

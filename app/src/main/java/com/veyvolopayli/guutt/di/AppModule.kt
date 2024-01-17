@@ -47,7 +47,7 @@ object AppModule {
     fun provideGuuApi(): GuuTtApi {
         return Retrofit
             .Builder()
-            .baseUrl(Constants.LOCALHOST)
+            .baseUrl(Constants.BASE_URL)
             .client(OkHttpClient.Builder().followRedirects(true).followSslRedirects(true).build())
             .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().disableHtmlEscaping().create()))
