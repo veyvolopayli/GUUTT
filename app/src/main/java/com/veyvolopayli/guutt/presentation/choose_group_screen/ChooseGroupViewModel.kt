@@ -22,8 +22,15 @@ class ChooseGroupViewModel @Inject constructor(
     private val _toastMessage: MutableLiveData<String> = MutableLiveData()
     val toastMessage: LiveData<String> = _toastMessage
 
+    private val _selectedGroup = MutableLiveData<String>()
+    val selectedGroup: LiveData<String> = _selectedGroup
+
     init {
         fetchGroups()
+    }
+
+    fun setSelectedGroup(group: String) {
+        _selectedGroup.value = group
     }
 
     private fun fetchGroups() {

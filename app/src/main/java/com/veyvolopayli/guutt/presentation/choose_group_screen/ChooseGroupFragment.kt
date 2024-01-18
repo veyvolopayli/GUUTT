@@ -1,13 +1,14 @@
 package com.veyvolopayli.guutt.presentation.choose_group_screen
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.veyvolopayli.guutt.R
 import com.veyvolopayli.guutt.databinding.FragmentChooseGroupBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,10 +25,17 @@ class ChooseGroupFragment : Fragment(R.layout.fragment_choose_group) {
         this.binding = binding
 
         viewModel.groupsState.observe(viewLifecycleOwner) { groups ->
-            val groupsAdapter = ArrayAdapter(requireContext(), R.layout.item_group, groups)
-            binding.enterGroupTv.apply {
-                setAdapter(groupsAdapter)
-//                showDropDown()
+            val groupsAdapter = GroupsRvAdapter()
+            groupsAdapter.addGroups(groups)
+            groupsAdapter.onClick = { group ->
+//                Toast.makeText(requireContext(), group, Toast.LENGTH_SHORT).show()
+                viewModel.setSelectedGroup(group)
+                binding.continueButton.isActive = true
+            }
+
+            binding.groupsRv.apply {
+                adapter = groupsAdapter
+                layoutManager = LinearLayoutManager(requireContext())
             }
         }
 
@@ -36,10 +44,15 @@ class ChooseGroupFragment : Fragment(R.layout.fragment_choose_group) {
         }
 
         binding.continueButton.setOnClickListener {
-            val group = binding.enterGroupTv.text.toString()
+            Log.e("AFAFAF", "AFASFDSDSG")
+            val group = viewModel.selectedGroup.value
             println(group)
-            val bundle = bundleOf("group" to group)
-            findNavController().navigate(R.id.action_chooseGroupFragment_to_homeFragment4, bundle)
+            if (group != null) {
+                val bundle = bundleOf("group" to group)
+                findNavController().navigate(R.id.action_chooseGroupFragment_to_homeFragment4, bundle)
+            } else {
+                Toast.makeText(requireContext(), "Group is null", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

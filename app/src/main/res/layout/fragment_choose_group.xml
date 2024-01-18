@@ -8,38 +8,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".presentation.choose_group_screen.ChooseGroupFragment">
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/groups_rv"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/continue_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/continue_button"
-        app:boxStrokeColor="@color/blue_1">
+        android:paddingVertical="12dp"
+        android:clipToPadding="false"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <AutoCompleteTextView
-            style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
-            android:id="@+id/enter_group_tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:hint="Группа"
-            app:layout_constraintBottom_toTopOf="@+id/continue_button"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <Button
+    <com.veyvolopayli.guutt.presentation.custom_views.BaseButton
         android:id="@+id/continue_button"
-        android:textColor="@color/white"
-        android:textSize="18sp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingVertical="12dp"
-        android:backgroundTint="@color/blue_1"
-        android:text="Далее"
+        app:text="Продолжить"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
