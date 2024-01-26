@@ -14,4 +14,8 @@ class PrefsRepositoryImpl @Inject constructor(
     override fun setString(key: String, value: String) {
         prefs.edit().putString(key, value).apply()
     }
+
+    override fun clearPrefs() {
+        prefs.edit().clear().apply()
+    }
 }

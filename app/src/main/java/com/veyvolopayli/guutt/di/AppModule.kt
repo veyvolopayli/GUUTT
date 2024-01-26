@@ -8,10 +8,14 @@ import com.google.gson.GsonBuilder
 import com.veyvolopayli.guutt.common.Constants
 import com.veyvolopayli.guutt.data.data_source.DayDatabase
 import com.veyvolopayli.guutt.data.remote.GuuTtApi
+import com.veyvolopayli.guutt.data.repository.AuthRepositoryImpl
 import com.veyvolopayli.guutt.data.repository.DayRepositoryImpl
 import com.veyvolopayli.guutt.data.repository.MainRepositoryImpl
+import com.veyvolopayli.guutt.data.repository.NewsRepositoryImpl
 import com.veyvolopayli.guutt.data.repository.PrefsRepositoryImpl
+import com.veyvolopayli.guutt.domain.repository.AuthRepository
 import com.veyvolopayli.guutt.domain.repository.MainRepository
+import com.veyvolopayli.guutt.domain.repository.NewsRepository
 import com.veyvolopayli.guutt.domain.repository.PrefsRepository
 import dagger.Module
 import dagger.Provides
@@ -71,5 +75,17 @@ object AppModule {
     @Singleton
     fun provideSharedPrefsRepository(prefs: SharedPreferences): PrefsRepository {
         return PrefsRepositoryImpl(prefs)
+    }
+
+    @Provides
+    @Singleton
+    fun provideNewsRepository(api: GuuTtApi): NewsRepository {
+        return NewsRepositoryImpl(api)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAuthRepository(api: GuuTtApi): AuthRepository {
+        return AuthRepositoryImpl(api)
     }
 }

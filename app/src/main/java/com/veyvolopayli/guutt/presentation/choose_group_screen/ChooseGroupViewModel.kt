@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.veyvolopayli.guutt.common.Resource
 import com.veyvolopayli.guutt.domain.usecases.FetchGroupsUseCase
+import com.veyvolopayli.guutt.domain.usecases.SetCurrentGroupUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -13,7 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ChooseGroupViewModel @Inject constructor(
-    private val fetchGroupsUseCase: FetchGroupsUseCase
+    private val fetchGroupsUseCase: FetchGroupsUseCase,
+    private val setCurrentGroupUseCase: SetCurrentGroupUseCase
 ): ViewModel() {
 
     private val _groupsState: MutableLiveData<List<String>> = MutableLiveData()
@@ -44,5 +46,9 @@ class ChooseGroupViewModel @Inject constructor(
                 }
             }
         }.launchIn(viewModelScope)
+    }
+
+    fun saveGroup(group: String) {
+        setCurrentGroupUseCase(group)
     }
 }

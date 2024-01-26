@@ -10,4 +10,5 @@
         android:name="com.veyvolopayli.guutt.presentation.home_screen.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
+
 </navigation>

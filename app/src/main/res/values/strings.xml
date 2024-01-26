@@ -15,4 +15,10 @@
     <string name="login">Логин</string>
     <string name="password">Пароль</string>
     <string name="captcha">Код с картинки</string>
+    <string name="no_classes_today">Сегодня нет пар</string>
+    <string name="not_classes_at_this_day">В этот день нет пар</string>
+    <string name="news">Новости</string>
+    <string name="search">Поиск</string>
+    <string name="date_template">Понедельник, 4 сентября 2023</string>
+    <string name="lection">Лекция</string>
 </resources>

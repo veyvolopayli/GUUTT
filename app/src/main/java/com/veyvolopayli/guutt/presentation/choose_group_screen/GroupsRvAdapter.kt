@@ -1,11 +1,9 @@
 package com.veyvolopayli.guutt.presentation.choose_group_screen
 
-import android.content.Context
-import android.content.res.Resources
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.veyvolopayli.guutt.R
@@ -16,7 +14,7 @@ class GroupsRvAdapter : RecyclerView.Adapter<GroupsRvAdapter.GroupViewHolder>() 
 
     var onClick: ((String) -> Unit)? = null
 
-    private var lastClicked: TextView? = null
+    private var selectedPosition: Int = RecyclerView.NO_POSITION
 
     fun addGroups(groups: List<String>) {
         this.groups.addAll(groups)
@@ -36,8 +34,23 @@ class GroupsRvAdapter : RecyclerView.Adapter<GroupsRvAdapter.GroupViewHolder>() 
     override fun onBindViewHolder(holder: GroupViewHolder, position: Int) {
         val group = groups[position]
         holder.title.text = group
+
+        val context = holder.title.context
+
+        if (position == selectedPosition) {
+            holder.title.setTextColor(context.getColor(R.color.apple_blue))
+        } else {
+            holder.title.setTextColor(context.getColor(R.color.black))
+        }
+
         holder.title.setOnClickListener {
             onClick?.invoke(group)
+
+            val previousSelectedPosition = selectedPosition
+            selectedPosition = position
+
+            notifyItemChanged(previousSelectedPosition)
+            notifyItemChanged(selectedPosition)
         }
     }
 

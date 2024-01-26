@@ -44,15 +44,19 @@ class ChooseGroupFragment : Fragment(R.layout.fragment_choose_group) {
         }
 
         binding.continueButton.setOnClickListener {
-            Log.e("AFAFAF", "AFASFDSDSG")
             val group = viewModel.selectedGroup.value
             println(group)
             if (group != null) {
+                viewModel.saveGroup(group)
                 val bundle = bundleOf("group" to group)
-                findNavController().navigate(R.id.action_chooseGroupFragment_to_homeFragment4, bundle)
+                findNavController().navigate(R.id.action_chooseGroupFragment_to_mainFragment, bundle)
             } else {
                 Toast.makeText(requireContext(), "Group is null", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        binding.noGroupTv.setOnClickListener {
+            findNavController().navigate(R.id.action_chooseGroupFragment_to_signInFragment)
         }
     }
 

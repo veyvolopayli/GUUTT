@@ -9,4 +9,8 @@
     <color name="blue_5">#eef0f6</color>
     <color name="apple_blue">#006FFD</color>
     <color name="apple_grey">#CCCCCE</color>
+    <color name="lemon">#FFF5D1</color>
+    <color name="lavender">#D2E6FE</color>
+    <color name="red">#fa8072</color>
+    <color name="green">#90ee90</color>
 </resources>

@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
+import androidx.core.content.res.ResourcesCompat
 import com.veyvolopayli.guutt.R
 import com.veyvolopayli.guutt.databinding.BaseButtonBinding
 
@@ -28,12 +29,7 @@ class BaseButton @JvmOverloads constructor(
         inflater.inflate(R.layout.base_button, this, true)
         binding = BaseButtonBinding.bind(this)
 
-        binding.materialButton.apply {
-            isClickable = false
-            isCheckable = false
-            isFocusable = false
-            isActivated = false
-        }
+        background = ResourcesCompat.getDrawable(resources, R.drawable.background_item_8dp, context.theme)
 
         setButtonState(ButtonState.IS_DISABLED)
 
@@ -42,7 +38,7 @@ class BaseButton @JvmOverloads constructor(
 
             val buttonText = typedArray.getString(R.styleable.BaseButton_text)
 
-            binding.materialButton.text = buttonText
+            binding.button.text = buttonText
 
             typedArray.recycle()
         }
@@ -51,12 +47,16 @@ class BaseButton @JvmOverloads constructor(
     private fun setButtonState(buttonState: ButtonState) {
         when(buttonState) {
             ButtonState.IS_ACTIVE -> {
-                isClickable = true
-                binding.materialButton.backgroundTintList = resources.getColorStateList(R.color.apple_blue, context.theme)
+//                binding.button.isClickable = true
+                binding.button.isFocusable = false
+                binding.button.isClickable = false
+                backgroundTintList = resources.getColorStateList(R.color.apple_blue, context.theme)
             }
             ButtonState.IS_DISABLED -> {
-                isClickable = false
-                binding.materialButton.backgroundTintList = resources.getColorStateList(R.color.apple_grey, context.theme)
+//                binding.button.isClickable = false
+                binding.button.isFocusable = true
+                binding.button.isClickable = true
+                backgroundTintList = resources.getColorStateList(R.color.apple_grey, context.theme)
             }
         }
     }

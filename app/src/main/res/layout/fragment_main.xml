@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".presentation.main.MainFragment"
+    android:orientation="vertical">
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        app:navGraph="@navigation/tabs_graph"
+        app:defaultNavHost="true"/>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:backgroundTint="#eef0f6"
+        app:backgroundTint="#eef0f6"
+        app:itemIconTint="@color/blue_1"
+        app:itemActiveIndicatorStyle="@color/apple_grey"
+        app:itemTextAppearanceActive="@font/dm_sans_regular"
+        app:itemTextAppearanceInactive="@font/dm_sans_regular"
+        app:menu="@menu/menu_bottom_navigation" />
+
+</LinearLayout>

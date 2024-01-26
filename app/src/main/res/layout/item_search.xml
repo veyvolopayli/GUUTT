@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="8dp"
+        android:background="@drawable/lesson_card_background"
+        android:orientation="vertical"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="8dp">
+
+        <TextView
+            android:id="@+id/lesson_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="50dp"
+            android:fontFamily="@font/dm_sans_regular"
+            android:text="@string/program_engenering"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="4dp"
+            android:fontFamily="@font/dm_sans_medium"
+            android:text="@string/time_template"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:drawableStartCompat="@drawable/ic_time_24"
+            app:drawableTint="@color/black" />
+
+        <TextView
+            android:id="@+id/classroom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/dm_sans_regular"
+            android:text="@string/classroom_example"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/lesson_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/dm_sans_regular"
+            android:text="@string/lection"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/professor_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/dm_sans_regular"
+            android:text="@string/edward_snowden"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="4dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/dm_sans_regular"
+            android:text="@string/date_template"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+</FrameLayout>

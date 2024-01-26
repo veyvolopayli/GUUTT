@@ -2,16 +2,17 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@drawable/background_item_8dp"
+    android:backgroundTint="@color/apple_grey">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/material_button"
+    <TextView
+        android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/dm_sans_regular"
+        android:gravity="center"
         android:paddingVertical="12dp"
-        android:textSize="18sp"
         android:textColor="@color/white"
-        app:cornerRadius="10dp"
-        android:fontFamily="@font/dm_sans_regular" />
+        android:textSize="18sp" />
 
 </merge>

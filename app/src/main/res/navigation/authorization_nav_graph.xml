@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/authorization_nav_graph"
+    app:startDestination="@id/chooseGroupFragment">
+
+    <fragment
+        android:id="@+id/chooseGroupFragment"
+        android:name="com.veyvolopayli.guutt.presentation.choose_group_screen.ChooseGroupFragment"
+        android:label="fragment_choose_group"
+        tools:layout="@layout/fragment_choose_group" >
+        <action
+            android:id="@+id/action_chooseGroupFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+        <action
+            android:id="@+id/action_chooseGroupFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.veyvolopayli.guutt.presentation.sign_in_screen.SignInFragment"
+        android:label="fragment_sign_in"
+        tools:layout="@layout/fragment_sign_in" >
+        <action
+            android:id="@+id/action_signInFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.veyvolopayli.guutt.presentation.main.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" />
+</navigation>

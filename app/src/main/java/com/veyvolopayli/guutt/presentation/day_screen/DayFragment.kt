@@ -9,7 +9,9 @@ import com.veyvolopayli.guutt.R
 import com.veyvolopayli.guutt.common.parcelable
 import com.veyvolopayli.guutt.databinding.FragmentDayBinding
 import com.veyvolopayli.guutt.domain.model.Day
+import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.time.format.TextStyle
 import java.util.Locale
 
 class DayFragment() : Fragment(R.layout.fragment_day) {
@@ -24,13 +26,15 @@ class DayFragment() : Fragment(R.layout.fragment_day) {
         val day = arguments?.parcelable<Day>("day")
 
         if (day != null) {
-            val adapter = LessonsAdapter(day.classes)
+            val adapter = LessonsAdapter().also { it.setClasses(day.classes) }
             binding.rv.apply {
                 layoutManager = LinearLayoutManager(requireContext())
                 this.adapter = adapter
             }
-            val formatter = DateTimeFormatter.ofPattern("d MMMM yyyy", Locale("ru", "RU"))
-            binding.date.text = day.date.format(formatter)
+            /*val formatter = DateTimeFormatter.ofPattern("E d MMMM", Locale.forLanguageTag("ru"))
+            val date = day.date.format(formatter)*/
+            val dayOfWeek = day.date.dayOfWeek.getDisplayName(TextStyle.FULL, Locale("ru"))
+            binding.date.text = dayOfWeek
         } else {
             Toast.makeText(requireContext(), "Day is null", Toast.LENGTH_SHORT).show()
         }

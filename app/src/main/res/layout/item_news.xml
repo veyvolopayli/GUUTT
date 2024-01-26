@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingBottom="4dp"
+    android:orientation="vertical"
+    android:layout_marginBottom="16dp"
+    android:layout_marginHorizontal="16dp"
+    android:background="@drawable/lesson_card_background">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:riv_corner_radius_top_left="12dp"
+        app:riv_corner_radius_top_right="12dp"
+        android:adjustViewBounds="true"
+        android:layout_marginBottom="4dp"/>
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:fontFamily="@font/dm_sans_medium"
+        android:layout_marginBottom="4dp"
+        android:layout_marginHorizontal="8dp"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:fontFamily="@font/dm_sans_regular"
+        android:layout_marginBottom="4dp"
+        android:layout_marginHorizontal="8dp"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:gravity="end"
+        android:fontFamily="@font/dm_sans_regular"
+        android:layout_marginBottom="4dp"
+        android:layout_marginHorizontal="8dp"
+        android:textColor="@color/black" />
+
+</LinearLayout>
