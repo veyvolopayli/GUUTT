@@ -9,6 +9,15 @@
         android:id="@+id/settingsFragment"
         android:name="com.veyvolopayli.guutt.presentation.settings_screen.SettingsFragment"
         android:label="fragment_settings"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_settingsFragment_to_guuWebsiteFragment"
+            app:destination="@id/guuWebsiteFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/guuWebsiteFragment"
+        android:name="com.veyvolopayli.guutt.presentation.guu_website_screen.GuuWebsiteFragment"
+        android:label="fragment_guu_website"
+        tools:layout="@layout/fragment_guu_website" />
 
 </navigation>

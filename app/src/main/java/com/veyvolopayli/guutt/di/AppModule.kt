@@ -6,14 +6,16 @@ import android.content.SharedPreferences
 import androidx.room.Room
 import com.google.gson.GsonBuilder
 import com.veyvolopayli.guutt.common.Constants
-import com.veyvolopayli.guutt.data.data_source.DayDatabase
+import com.veyvolopayli.guutt.data.data_source.ClassesDatabase
 import com.veyvolopayli.guutt.data.remote.GuuTtApi
 import com.veyvolopayli.guutt.data.repository.AuthRepositoryImpl
 import com.veyvolopayli.guutt.data.repository.DayRepositoryImpl
+import com.veyvolopayli.guutt.data.repository.DbClassesRepositoryImpl
 import com.veyvolopayli.guutt.data.repository.MainRepositoryImpl
 import com.veyvolopayli.guutt.data.repository.NewsRepositoryImpl
 import com.veyvolopayli.guutt.data.repository.PrefsRepositoryImpl
 import com.veyvolopayli.guutt.domain.repository.AuthRepository
+import com.veyvolopayli.guutt.domain.repository.DbClassesRepository
 import com.veyvolopayli.guutt.domain.repository.MainRepository
 import com.veyvolopayli.guutt.domain.repository.NewsRepository
 import com.veyvolopayli.guutt.domain.repository.PrefsRepository
@@ -32,18 +34,24 @@ import javax.inject.Singleton
 object AppModule {
     @Provides
     @Singleton
-    fun provideDayDB(application: Application): DayDatabase {
+    fun provideDayDB(application: Application): ClassesDatabase {
         return Room.databaseBuilder(
             application,
-            DayDatabase::class.java,
-            DayDatabase.DATABASE_NAME
+            ClassesDatabase::class.java,
+            ClassesDatabase.DATABASE_NAME
         ).build()
     }
 
     @Provides
     @Singleton
-    fun provideDayRepository(db: DayDatabase): DayRepositoryImpl {
-        return DayRepositoryImpl(db.dayDao)
+    fun provideDbClassesRepository(db: ClassesDatabase): DbClassesRepository {
+        return DbClassesRepositoryImpl(db.classesDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDayRepository(db: ClassesDatabase): DayRepositoryImpl {
+        return DayRepositoryImpl(db.classesDao)
     }
 
     @Provides

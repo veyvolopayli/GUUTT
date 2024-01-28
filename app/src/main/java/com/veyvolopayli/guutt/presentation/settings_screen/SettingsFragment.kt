@@ -27,6 +27,9 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         }
 
         binding.openGuuWebsiteButton.isActive = true
+        binding.openGuuWebsiteButton.setOnClickListener {
+            findNavController().navigate(R.id.action_settingsFragment_to_guuWebsiteFragment)
+        }
     }
 
     override fun onDestroyView() {
