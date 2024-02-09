@@ -9,7 +9,6 @@ import com.veyvolopayli.guutt.common.Constants
 import com.veyvolopayli.guutt.data.data_source.ClassesDatabase
 import com.veyvolopayli.guutt.data.remote.GuuTtApi
 import com.veyvolopayli.guutt.data.repository.AuthRepositoryImpl
-import com.veyvolopayli.guutt.data.repository.DayRepositoryImpl
 import com.veyvolopayli.guutt.data.repository.DbClassesRepositoryImpl
 import com.veyvolopayli.guutt.data.repository.MainRepositoryImpl
 import com.veyvolopayli.guutt.data.repository.NewsRepositoryImpl
@@ -46,12 +45,6 @@ object AppModule {
     @Singleton
     fun provideDbClassesRepository(db: ClassesDatabase): DbClassesRepository {
         return DbClassesRepositoryImpl(db.classesDao)
-    }
-
-    @Provides
-    @Singleton
-    fun provideDayRepository(db: ClassesDatabase): DayRepositoryImpl {
-        return DayRepositoryImpl(db.classesDao)
     }
 
     @Provides

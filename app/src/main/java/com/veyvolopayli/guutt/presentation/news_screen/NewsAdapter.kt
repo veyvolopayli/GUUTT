@@ -31,11 +31,12 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
         }
     }
 
-    fun addNews(news: List<News>) {
+    fun setNews(news: List<News>) {
         this.news.apply {
             clear()
             addAll(news)
         }
+        notifyDataSetChanged()
     }
 
 }

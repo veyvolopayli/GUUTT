@@ -9,4 +9,4 @@ data class ClassDescription(
     val event: String,
     val professor: String,
     val department: String
-)
+): java.io.Serializable

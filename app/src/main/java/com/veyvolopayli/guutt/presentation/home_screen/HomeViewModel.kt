@@ -41,8 +41,23 @@ class HomeViewModel @Inject constructor(
     private val _classesDates = MutableLiveData<Map<LocalDate, String>>()
     val classesDates: LiveData<Map<LocalDate, String>> = _classesDates
 
+    var somePosition = 0
+
+//    private val _currentViewPagerPosition = MutableLiveData<Long>()
+//    val currentViewPagerPosition: LiveData<Long> = _currentViewPagerPosition
+
     init {
         getCurrentGroup()
+    }
+
+//    private fun setTodayViewPagerPosition(days: List<Day>) {
+//        val today = LocalDate.now()
+//        val todayPosition = days.indexOfFirst { it.date.isEqual(today) }
+//        _currentViewPagerPosition
+//    }
+//
+    fun updateCurrentViewPagerPosition(position: Int) {
+        somePosition = position
     }
 
     private fun getClasses(group: String) {
@@ -59,6 +74,7 @@ class HomeViewModel @Inject constructor(
                         Day(date = date, classes = it.value)
                     }
                     _classesDates.value = datesMap
+//                    setTodayViewPagerPosition(mappedClasses)
                     _daysState.value = mappedClasses
 //                    setCurrentGroupUseCase(newGroup = group)
                 }

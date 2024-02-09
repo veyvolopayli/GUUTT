@@ -1,9 +1,11 @@
 package com.veyvolopayli.guutt.presentation.home_screen
 
+import android.os.Bundle
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.veyvolopayli.guutt.domain.model.ClassObject
 import com.veyvolopayli.guutt.domain.model.Day
 import com.veyvolopayli.guutt.presentation.day_screen.DayFragment
 import com.veyvolopayli.guutt.presentation.day_screen.NoClassesFragment
@@ -22,6 +24,9 @@ class HomeViewPagerAdapter(activity: FragmentActivity) : FragmentStateAdapter(ac
             it.arguments = bundleOf("date" to date)
         }
         val bundle = bundleOf("day" to days[position])
+        /*val b = bundleOf("l" to days[position].classes)
+        val bundle = Bundle()
+        bundle.put*/
         val dayFragment = DayFragment().also {
             it.arguments = bundle
         }

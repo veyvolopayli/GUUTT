@@ -1,5 +1,6 @@
 package com.veyvolopayli.guutt.presentation.day_screen
 
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -23,7 +24,11 @@ class DayFragment() : Fragment(R.layout.fragment_day) {
         val binding = FragmentDayBinding.bind(view)
         this.binding = binding
 
-        val day = arguments?.parcelable<Day>("day")
+        val day: Day? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            arguments?.getSerializable("day", Day::class.java)
+        } else {
+            arguments?.getSerializable("day") as? Day
+        }
 
         if (day != null) {
             val adapter = LessonsAdapter().also { it.setClasses(day.classes) }

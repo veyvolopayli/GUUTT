@@ -10,7 +10,7 @@ data class ClassObject(
     val start: String,
     val end: String,
     val description: ClassDescription
-) {
+): java.io.Serializable {
     fun toClassObjectWithNote(group: String): ClassObjectWithNote {
         return ClassObjectWithNote(
             id = this.id,

@@ -28,6 +28,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         val binding = FragmentHomeBinding.bind(view)
         this.binding = binding
 
+        if (savedInstanceState == null) {
+            Toast.makeText(requireContext(), "Null", Toast.LENGTH_SHORT).show()
+        }
+
         vm.groupState.observe(viewLifecycleOwner) { group ->
             binding.groupTv.apply {
                 text = group
@@ -35,13 +39,17 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
         }
 
+        val homeViewPagerAdapter = HomeViewPagerAdapter(requireActivity())
+        binding.viewPager.adapter = homeViewPagerAdapter
+
         vm.daysState.observe(viewLifecycleOwner) { days ->
-            val homeViewPagerAdapter = HomeViewPagerAdapter(requireActivity())
             homeViewPagerAdapter.setDays(days)
-            binding.viewPager.adapter = homeViewPagerAdapter
-            val currentDate = LocalDate.now()
-            val currentPosition = days.indexOfFirst { it.date.isEqual(currentDate) }
-            binding.viewPager.setCurrentItem(currentPosition, false)
+            binding.viewPager.setCurrentItem(vm.somePosition, false)
+            /*if (savedInstanceState == null) {
+                val currentDate = LocalDate.now()
+                val currentPosition = days.indexOfFirst { it.date.isEqual(currentDate) }
+                binding.viewPager.setCurrentItem(currentPosition, true)
+            }*/
         }
 
         binding.viewPager.registerOnPageChangeCallback(object : OnPageChangeCallback() {
@@ -50,6 +58,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
                 val selectedDate = vm.classesDates.value?.toList()?.get(position)?.second ?: "??.??.??"
                 binding.calendarButton.text = selectedDate
+
+                vm.updateCurrentViewPagerPosition(position)
             }
         })
 
