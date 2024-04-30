@@ -7,16 +7,6 @@
     tools:context=".presentation.day_screen.NoClassesFragment">
 
     <TextView
-        android:id="@+id/date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/dm_sans_semi_bold"
-        android:textSize="22sp"
-        android:textColor="@color/black"
-        android:paddingHorizontal="16dp" />
-
-    <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fontFamily="@font/dm_sans_regular"

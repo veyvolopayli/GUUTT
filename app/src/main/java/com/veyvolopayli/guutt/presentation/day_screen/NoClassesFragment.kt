@@ -12,11 +12,12 @@ import java.util.Locale
 
 class NoClassesFragment : Fragment(R.layout.fragment_no_classes) {
     companion object {
-        private const val ARG_DAY_OF_WEEK = "day_of_week"
+//        private const val ARG_DAY_OF_WEEK = "day_of_week"
         fun newInstance(day: Day): NoClassesFragment {
             val dayOfWeek = day.date.dayOfWeek.getDisplayName(TextStyle.FULL, Locale.getDefault())
-            val args = bundleOf(ARG_DAY_OF_WEEK to dayOfWeek)
-            return NoClassesFragment().apply { arguments = args }
+//            val args = bundleOf(ARG_DAY_OF_WEEK to dayOfWeek)
+//            return NoClassesFragment().apply { arguments = args }
+            return NoClassesFragment()
         }
     }
 
@@ -25,8 +26,8 @@ class NoClassesFragment : Fragment(R.layout.fragment_no_classes) {
 
         val binding = FragmentNoClassesBinding.bind(view)
 
-        val dayOfWeek = arguments?.getString(ARG_DAY_OF_WEEK) ?: "выходной :)"
-        binding.date.text = dayOfWeek
+//        val dayOfWeek = arguments?.getString(ARG_DAY_OF_WEEK) ?: "выходной :)"
+//        binding.date.text = dayOfWeek
     }
 
 }
