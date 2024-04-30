@@ -1,11 +1,11 @@
 package com.veyvolopayli.guutt.presentation.main
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.veyvolopayli.guutt.domain.usecases.GetCurrentGroupUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -17,8 +17,8 @@ class MainViewModel @Inject constructor(
     // todo Проверка интернет соединения
     // todo Проверка наличия группы в SP -> 2 сценария навигации: Экран авторизации (WebView); Домашний экран с расписанием
 
-    private val _currentGroup = MutableLiveData<String?>()
-    val currentGroup: LiveData<String?> = _currentGroup
+    private val _currentGroup = MutableStateFlow<String?>(null)
+    val currentGroup: StateFlow<String?> = _currentGroup
 
     init {
         isUpdateAvailable()

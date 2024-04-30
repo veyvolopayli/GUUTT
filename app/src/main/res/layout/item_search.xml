@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="50dp"
             android:fontFamily="@font/dm_sans_regular"
-            android:text="@string/program_engenering"
+            android:text="@string/program_engineering"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
@@ -51,7 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/dm_sans_regular"
-            android:text="@string/lection"
+            android:text="@string/lecture"
             android:textColor="@color/black"
             android:textSize="18sp" />
 

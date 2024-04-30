@@ -1,22 +1,23 @@
 package com.veyvolopayli.guutt.presentation.main
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.commitNow
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavOptions
-import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
 import com.veyvolopayli.guutt.R
 import com.veyvolopayli.guutt.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     private var binding: ActivityMainBinding? = null
-    private val viewModel: MainViewModel by viewModels()
+    private val vm: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,18 +25,31 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         this.binding = binding
 
-        setContentView(binding.root)
+        val navHostFragment = obtainNavHostFragment()
 
-        if (savedInstanceState == null) {
-            val navHostFragment = supportFragmentManager.findFragmentById(binding.mainFragmentContainer.id) as NavHostFragment
-            val navController = navHostFragment.navController
+        supportFragmentManager.commitNow {
+            replace(binding.mainFragmentContainer.id, navHostFragment)
+            setPrimaryNavigationFragment(navHostFragment)
+        }
 
-            viewModel.currentGroup.observe(this) { currentGroup ->
-                if (currentGroup != null) {
+        lifecycleScope.launch {
+            checkChosenGroup(navHostFragment)
+        }
+    }
+
+    private fun obtainNavHostFragment(): NavHostFragment {
+        val existingNavHostFragment = binding?.mainFragmentContainer?.getFragment() as? NavHostFragment
+        existingNavHostFragment?.let { return it }
+
+        return NavHostFragment.create(R.navigation.authorization_nav_graph)
+    }
+
+    private suspend fun checkChosenGroup(navHostFragment: NavHostFragment) {
+        if (navHostFragment.navController.currentDestination == navHostFragment.navController.graph.findStartDestination()) {
+            vm.currentGroup.collect { currentGroup ->
+                currentGroup?.let {
                     val navOptions = NavOptions.Builder().setPopUpTo(R.id.chooseGroupFragment, true).build()
-                    binding.root.post {
-                        navController.navigate(R.id.action_chooseGroupFragment_to_mainFragment, null, navOptions)
-                    }
+                    navHostFragment.navController.navigate(R.id.action_chooseGroupFragment_to_mainFragment, null, navOptions)
                 }
             }
         }

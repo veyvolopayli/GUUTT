@@ -3,7 +3,7 @@
     <string name="main">Главная</string>
     <string name="settings">Настройки</string>
     <string name="lz">ЛЗ</string>
-    <string name="program_engenering">Программная инженерия</string>
+    <string name="program_engineering">Программная инженерия</string>
     <string name="classroom_example">ЛЗ-106</string>
     <string name="edward_snowden">Эдвард Сноуден</string>
     <string name="time_template">11:35-13:05</string>
@@ -20,5 +20,16 @@
     <string name="news">Новости</string>
     <string name="search">Поиск</string>
     <string name="date_template">Понедельник, 4 сентября 2023</string>
-    <string name="lection">Лекция</string>
+    <string name="class_type_example">Практическое занятие</string>
+    <string name="time_example_first">11:35</string>
+    <string name="day_of_week_example">ВТ</string>
+    <string name="day_of_month_example">25</string>
+    <string name="time">Время</string>
+    <string name="classes">Пары</string>
+    <string name="lecture">Лекция</string>
+    <string name="laboratory_session">Лабораторная работа</string>
+    <string name="practical_session">Практическое занятие</string>
+    <string name="exam">Экзамен</string>
+    <string name="credit_exam">Зачет</string>
+    <string name="project">КП</string>
 </resources>

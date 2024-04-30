@@ -1,22 +1,30 @@
 package com.veyvolopayli.guutt.presentation.day_screen
 
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.widget.TextViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.veyvolopayli.guutt.R
-import com.veyvolopayli.guutt.databinding.ItemLessonBinding
+import com.veyvolopayli.guutt.databinding.ItemClassBinding
 import com.veyvolopayli.guutt.domain.model.ClassObject
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class LessonsAdapter() : RecyclerView.Adapter<LessonsAdapter.LessonViewHolder>() {
 
     private val classes = mutableListOf<ClassObject>()
 
-    class LessonViewHolder(val binding: ItemLessonBinding) : RecyclerView.ViewHolder(binding.root)
+    private val dateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME
+    private val currentDateTime = LocalDateTime.now()
+
+    class LessonViewHolder(val binding: ItemClassBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LessonViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemLessonBinding.inflate(inflater, parent, false)
+        val binding = ItemClassBinding.inflate(inflater, parent, false)
         return LessonViewHolder(binding)
     }
 
@@ -24,41 +32,61 @@ class LessonsAdapter() : RecyclerView.Adapter<LessonsAdapter.LessonViewHolder>()
 
     override fun onBindViewHolder(holder: LessonViewHolder, position: Int) {
         val universityClass = classes[position]
-        val formattedTime = "${universityClass.start.substring(11, 16)}-${universityClass.end.substring(11, 16)}"
+
+        val startDateTime = LocalDateTime.parse(universityClass.start, dateTimeFormatter)
+        val endDateTime = LocalDateTime.parse(universityClass.end, dateTimeFormatter)
 
         val context = holder.binding.root.context
-        val formattedLessonType = when (universityClass.description.event) {
-            "Практическое занятие" -> "ПЗ"
-            "Лабораторная работа" -> "ЛР"
-            "Лекция" -> "Л"
-            "Экзамен" -> "Экзамен"
-            "Зачет" -> "Зачет"
-            else -> ""
-        }
-        val lessonTypeColor = when(formattedLessonType) {
-            "Л" -> context.getColorStateList(R.color.lemon)
-            "Экзамен" -> context.getColorStateList(R.color.red)
-            "Зачет" -> context.getColorStateList(R.color.green)
-            else -> context.getColorStateList(R.color.blue_2)
-        }
         with(holder.binding) {
-            lessonType.apply {
-                backgroundTintList = lessonTypeColor
-                visibility = if (formattedLessonType.isNotEmpty()) View.VISIBLE else View.GONE
-                text = formattedLessonType
-                if (formattedLessonType == "Л") {
-                    setTextColor(context.getColor(R.color.black))
-                } else {
-                    setTextColor(context.getColor(R.color.white))
-                }
+            classProfessorName.visibility = when {
+                universityClass.description.professor.isNotEmpty() -> View.VISIBLE
+                else -> View.GONE
             }
-            lessonName.text = universityClass.title
+
+            val timeMinWith = timeStart.paint.measureText("00:00")
+            timeStart.width = timeStart.paddingLeft + timeStart.paddingRight + timeMinWith.toInt()
+            classTitle.text = universityClass.title
+            classType.text = universityClass.description.event
             classroom.text = universityClass.description.classroom
-            professorName.visibility =
-                (if (universityClass.description.professor.isNotEmpty()) View.VISIBLE else View.GONE).also {
-                    professorName.text = universityClass.description.professor
-                }
-            time.text = formattedTime
+            classProfessorName.text = universityClass.description.professor
+            timeStart.text = startDateTime.toLocalTime().toString()
+            timeEnd.text = endDateTime.toLocalTime().toString()
+
+            if (currentDateTime.isAfter(startDateTime) && currentDateTime.isBefore(endDateTime)) {
+                val activeCardBackgroundColorResource =
+                    when (universityClass.description.event.trim()) {
+                        context.getString(R.string.lecture) -> R.color.class_card_color_lecture
+                        context.getString(R.string.practical_session) -> R.color.class_card_color_practical
+                        context.getString(R.string.laboratory_session) -> R.color.class_card_color_laboratory
+                        context.getString(R.string.exam) -> R.color.class_card_color_exam
+                        context.getString(R.string.credit_exam) -> R.color.class_card_color_credit
+                        context.getString(R.string.project) -> R.color.class_card_color_exam
+                        else -> R.color.class_card_color_disabled
+                    }
+                val cardBackgroundColor = ResourcesCompat.getColor(
+                    context.resources, activeCardBackgroundColorResource, context.theme
+                )
+                card.backgroundTintList = ColorStateList.valueOf(cardBackgroundColor)
+                val textColor = ResourcesCompat.getColor(context.resources, R.color.white, context.theme)
+                classTitle.setTextColor(textColor)
+                classType.setTextColor(textColor)
+                classroom.setTextColor(textColor)
+                classProfessorName.setTextColor(textColor)
+                TextViewCompat.setCompoundDrawableTintList(classroom, ColorStateList.valueOf(textColor))
+                TextViewCompat.setCompoundDrawableTintList(classProfessorName, ColorStateList.valueOf(textColor))
+            } else {
+                val cardBackgroundColor = ResourcesCompat.getColor(
+                    context.resources, R.color.class_card_color_disabled, context.theme
+                )
+                card.backgroundTintList = ColorStateList.valueOf(cardBackgroundColor)
+                val textColor = ResourcesCompat.getColor(context.resources, R.color.black, context.theme)
+                classTitle.setTextColor(textColor)
+                classType.setTextColor(textColor)
+                classroom.setTextColor(textColor)
+                classProfessorName.setTextColor(textColor)
+                TextViewCompat.setCompoundDrawableTintList(classroom, ColorStateList.valueOf(textColor))
+                TextViewCompat.setCompoundDrawableTintList(classProfessorName, ColorStateList.valueOf(textColor))
+            }
         }
     }
 
@@ -67,6 +95,5 @@ class LessonsAdapter() : RecyclerView.Adapter<LessonsAdapter.LessonViewHolder>()
             clear()
             addAll(classes)
         }
-        notifyDataSetChanged()
     }
 }

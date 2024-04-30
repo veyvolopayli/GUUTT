@@ -6,13 +6,18 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
+import com.google.android.material.tabs.TabLayoutMediator
 import com.veyvolopayli.guutt.R
 import com.veyvolopayli.guutt.databinding.FragmentHomeBinding
+import com.veyvolopayli.guutt.presentation.custom_views.CustomTab
 import dagger.hilt.android.AndroidEntryPoint
-import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.time.format.TextStyle
 import java.util.Calendar
 import java.util.Locale
 
@@ -28,9 +33,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         val binding = FragmentHomeBinding.bind(view)
         this.binding = binding
 
-        if (savedInstanceState == null) {
-            Toast.makeText(requireContext(), "Null", Toast.LENGTH_SHORT).show()
-        }
+        val homeViewPagerAdapter = ViewPagerFragmentsAdapter(this)
 
         vm.groupState.observe(viewLifecycleOwner) { group ->
             binding.groupTv.apply {
@@ -39,27 +42,58 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
         }
 
-        val homeViewPagerAdapter = HomeViewPagerAdapter(requireActivity())
-        binding.viewPager.adapter = homeViewPagerAdapter
-
-        vm.daysState.observe(viewLifecycleOwner) { days ->
-            homeViewPagerAdapter.setDays(days)
-            binding.viewPager.setCurrentItem(vm.somePosition, false)
-            /*if (savedInstanceState == null) {
-                val currentDate = LocalDate.now()
-                val currentPosition = days.indexOfFirst { it.date.isEqual(currentDate) }
-                binding.viewPager.setCurrentItem(currentPosition, true)
-            }*/
+        vm.currentItem.observe(viewLifecycleOwner) { position ->
+            binding.viewPager.currentItem = position
         }
 
-        binding.viewPager.registerOnPageChangeCallback(object : OnPageChangeCallback() {
+        vm.daysState.observe(viewLifecycleOwner) { days ->
+            homeViewPagerAdapter.setFragments(days)
+            binding.viewPager.adapter = homeViewPagerAdapter
+
+            TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
+                val customTab = CustomTab(requireContext())
+                val date = vm.daysState.value?.get(position)?.date ?: LocalDate.now()
+                val dayOfWeek = date.dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.getDefault())
+                val dayOfMonth = date.dayOfMonth.toString()
+                customTab.apply {
+//                    tabIsActive = tab.isSelected
+                    dayOfWeekText = dayOfWeek
+                    dayOfMonthText = dayOfMonth
+                }
+                tab.customView = customTab
+                if (tab.isSelected) {
+                    println("${tab.id} is selected")
+                }
+            }.attach()
+        }
+
+        binding.tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                val tabCustomView = tab?.customView as? CustomTab
+                tab?.customView = tabCustomView?.apply {
+                    tabIsActive = true
+                }
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+                val tabCustomView = tab?.customView as? CustomTab
+                tab?.customView = tabCustomView?.apply {
+                    tabIsActive = false
+                }
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+            }
+
+        })
+
+
+        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-
-                val selectedDate = vm.classesDates.value?.toList()?.get(position)?.second ?: "??.??.??"
-                binding.calendarButton.text = selectedDate
-
-                vm.updateCurrentViewPagerPosition(position)
+                val currentDay = vm.daysState.value?.get(position)
+                binding.calendarButton.text = formatDate(currentDay?.date ?: LocalDate.now())
+                vm.setCurrentVpItem(position)
             }
         })
 
@@ -67,18 +101,32 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
         }
 
+        initCalendar()
+    }
+
+    private fun Calendar.scrollToChosenDay() {
+        val days = vm.daysState.value
+        val localizedDate = this.time.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
+
+        val position = days?.indexOfFirst { it.date.isEqual(localizedDate) }
+        if (position != null) binding?.viewPager?.currentItem = position
+    }
+
+    private fun Calendar.updateButton() {
+        val localDate = LocalDate.ofInstant(this.toInstant(), ZoneId.systemDefault())
+        val stringDate = formatDate(localDate)
+        binding?.calendarButton?.text = stringDate
+    }
+
+    private fun initCalendar() {
         val calendar = Calendar.getInstance()
-
         val datePicker = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-            calendar.set(Calendar.YEAR, year)
-            calendar.set(Calendar.MONTH, month)
-            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-
+            calendar.set(year, month, dayOfMonth)
             calendar.scrollToChosenDay()
             calendar.updateButton()
         }
 
-        binding.calendarButton.setOnClickListener {
+        binding?.calendarButton?.setOnClickListener {
             DatePickerDialog(
                 requireContext(),
                 datePicker,
@@ -87,21 +135,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 calendar.get(Calendar.DAY_OF_MONTH)
             ).show()
         }
-
     }
 
-    private fun Calendar.scrollToChosenDay() {
-        val days = vm.daysState.value
-        val localizedDate = this.time.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
-
-        val position = days?.indexOfFirst { it.date.isEqual(localizedDate) }
-        if (position != null) binding?.viewPager?.setCurrentItem(position, false)
-    }
-
-    private fun Calendar.updateButton() {
-        val format = "d MMM yyyyг."
-        val dateFormat = SimpleDateFormat(format, Locale("ru"))
-        binding?.calendarButton?.text = dateFormat.format(this.time)
+    private fun formatDate(date: LocalDate): String {
+        val format = "d MMM yyyy"
+        val dateFormatter = DateTimeFormatter.ofPattern(format, Locale.getDefault())
+        return dateFormatter.format(date)
     }
 
     override fun onDestroyView() {

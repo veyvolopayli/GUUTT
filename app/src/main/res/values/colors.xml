@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
+    <color name="black">#212525</color>
     <color name="white">#FFFFFFFF</color>
     <color name="blue_1">#094d74</color>
     <color name="blue_2">#759cd8</color>
@@ -13,4 +13,13 @@
     <color name="lavender">#D2E6FE</color>
     <color name="red">#fa8072</color>
     <color name="green">#90ee90</color>
+    <color name="ocean_green">#4DC591</color>
+    <color name="grey">#BCC1CD</color>
+    <color name="class_divider_color">#FAF9F9</color>
+    <color name="class_card_color_practical">#4DC591</color> <!--White text color-->
+    <color name="class_card_color_laboratory">#4DC591</color> <!--White text color-->
+    <color name="class_card_color_lecture">#8F98FF</color> <!--White text color-->
+    <color name="class_card_color_exam">#FF7648</color> <!--White text color-->
+    <color name="class_card_color_credit">#00664F</color> <!--White text color-->
+    <color name="class_card_color_disabled">#F6F6F5</color> <!--Black text color-->
 </resources>

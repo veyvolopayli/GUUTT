@@ -45,7 +45,6 @@ class ChooseGroupFragment : Fragment(R.layout.fragment_choose_group) {
 
         binding.continueButton.setOnClickListener {
             val group = viewModel.selectedGroup.value
-            println(group)
             if (group != null) {
                 viewModel.saveGroup(group)
                 val bundle = bundleOf("group" to group)
