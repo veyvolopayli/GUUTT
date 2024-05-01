@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
     tools:context=".presentation.settings_screen.SettingsFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -41,13 +42,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            app:text="Выбрать другую группу" />
+            app:text="@string/choose_another_group" />
 
         <com.veyvolopayli.guutt.presentation.custom_views.BaseButton
             android:id="@+id/open_guu_website_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:text="Открыть сайт ГУУ" />
+            app:text="@string/open_guu_website" />
 
     </LinearLayout>
 

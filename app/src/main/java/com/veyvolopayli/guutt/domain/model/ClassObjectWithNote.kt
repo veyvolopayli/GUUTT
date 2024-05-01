@@ -19,20 +19,20 @@ data class ClassObjectWithNote(
     val group: String,
     val note: String
 ) {
-    fun toClassObject(): ClassObject {
-        return ClassObject(
-            id = this.id,
-            title = this.title,
-            color = this.color,
-            start = this.start,
-            end = this.end,
-            description = ClassDescription(
-                building = this.building,
-                classroom = this.classroom,
-                event = this.event,
-                professor = this.professor,
-                department = this.department
-            )
-        )
-    }
+//    fun toClassObject(): ClassObject {
+//        return ClassObject(
+//            id = this.id,
+//            title = this.title,
+//            color = this.color,
+//            start = this.start,
+//            end = this.end,
+//            description = ClassDescription(
+//                building = this.building,
+//                classroom = this.classroom,
+//                event = this.event,
+//                professor = this.professor,
+//                department = this.department
+//            )
+//        )
+//    }
 }

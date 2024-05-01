@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.veyvolopayli.guutt.R
@@ -28,7 +29,6 @@ class ChooseGroupFragment : Fragment(R.layout.fragment_choose_group) {
             val groupsAdapter = GroupsRvAdapter()
             groupsAdapter.addGroups(groups)
             groupsAdapter.onClick = { group ->
-//                Toast.makeText(requireContext(), group, Toast.LENGTH_SHORT).show()
                 viewModel.setSelectedGroup(group)
                 binding.continueButton.isActive = true
             }
@@ -48,7 +48,8 @@ class ChooseGroupFragment : Fragment(R.layout.fragment_choose_group) {
             if (group != null) {
                 viewModel.saveGroup(group)
                 val bundle = bundleOf("group" to group)
-                findNavController().navigate(R.id.action_chooseGroupFragment_to_mainFragment, bundle)
+                val navOptions = NavOptions.Builder().setPopUpTo(R.id.chooseGroupFragment, true).build()
+                findNavController().navigate(R.id.action_chooseGroupFragment_to_mainFragment, bundle, navOptions)
             } else {
                 Toast.makeText(requireContext(), "Group is null", Toast.LENGTH_SHORT).show()
             }

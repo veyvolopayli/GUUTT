@@ -6,6 +6,7 @@ import com.veyvolopayli.guutt.domain.repository.DbClassesRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
+import java.time.LocalDateTime
 import javax.inject.Inject
 
 class GetClassesFromDb @Inject constructor(
@@ -19,8 +20,10 @@ class GetClassesFromDb @Inject constructor(
                     id = cWithNote.id,
                     title = cWithNote.title,
                     color = cWithNote.color,
-                    start = cWithNote.start,
-                    end = cWithNote.end,
+//                    start = cWithNote.start,
+                    start = LocalDateTime.now(),
+//                    end = cWithNote.end,
+                    end = LocalDateTime.now(),
                     description = ClassDescription(
                         building = cWithNote.building,
                         classroom = cWithNote.classroom,

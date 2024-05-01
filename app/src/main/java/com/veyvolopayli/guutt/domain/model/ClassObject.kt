@@ -1,30 +1,15 @@
 package com.veyvolopayli.guutt.domain.model
 
+import com.veyvolopayli.guutt.common.serializers.LocalDateTimeSerializer
 import kotlinx.serialization.Serializable
+import java.time.LocalDateTime
 
 @Serializable
 data class ClassObject(
     val id: Long,
     val title: String,
     val color: String,
-    val start: String,
-    val end: String,
+    @Serializable(with = LocalDateTimeSerializer::class) val start: LocalDateTime,
+    @Serializable(with = LocalDateTimeSerializer::class) val end: LocalDateTime,
     val description: ClassDescription
-): java.io.Serializable {
-    fun toClassObjectWithNote(group: String): ClassObjectWithNote {
-        return ClassObjectWithNote(
-            id = this.id,
-            title = this.title,
-            color = this.color,
-            start = this.start,
-            end = this.end,
-            building = this.description.building,
-            classroom = this.description.classroom,
-            event = this.description.event,
-            professor = this.description.professor,
-            department = this.description.department,
-            group = group,
-            note = ""
-        )
-    }
-}
+): java.io.Serializable

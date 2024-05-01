@@ -17,7 +17,6 @@ class LessonsAdapter() : RecyclerView.Adapter<LessonsAdapter.LessonViewHolder>()
 
     private val classes = mutableListOf<ClassObject>()
 
-    private val dateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME
     private val currentDateTime = LocalDateTime.now()
 
     class LessonViewHolder(val binding: ItemClassBinding) : RecyclerView.ViewHolder(binding.root)
@@ -33,9 +32,6 @@ class LessonsAdapter() : RecyclerView.Adapter<LessonsAdapter.LessonViewHolder>()
     override fun onBindViewHolder(holder: LessonViewHolder, position: Int) {
         val universityClass = classes[position]
 
-        val startDateTime = LocalDateTime.parse(universityClass.start, dateTimeFormatter)
-        val endDateTime = LocalDateTime.parse(universityClass.end, dateTimeFormatter)
-
         val context = holder.binding.root.context
         with(holder.binding) {
             classProfessorName.visibility = when {
@@ -45,14 +41,15 @@ class LessonsAdapter() : RecyclerView.Adapter<LessonsAdapter.LessonViewHolder>()
 
             val timeMinWith = timeStart.paint.measureText("00:00")
             timeStart.width = timeStart.paddingLeft + timeStart.paddingRight + timeMinWith.toInt()
+            timeEnd.width = timeStart.paddingLeft + timeStart.paddingRight + timeMinWith.toInt()
             classTitle.text = universityClass.title
             classType.text = universityClass.description.event
             classroom.text = universityClass.description.classroom
             classProfessorName.text = universityClass.description.professor
-            timeStart.text = startDateTime.toLocalTime().toString()
-            timeEnd.text = endDateTime.toLocalTime().toString()
+            timeStart.text = universityClass.start.toLocalTime().toString()
+            timeEnd.text = universityClass.end.toLocalTime().toString()
 
-            if (currentDateTime.isAfter(startDateTime) && currentDateTime.isBefore(endDateTime)) {
+            if (currentDateTime.isAfter(universityClass.start) && currentDateTime.isBefore(universityClass.end)) {
                 val activeCardBackgroundColorResource =
                     when (universityClass.description.event.trim()) {
                         context.getString(R.string.lecture) -> R.color.class_card_color_lecture

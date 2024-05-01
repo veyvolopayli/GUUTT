@@ -2,6 +2,7 @@ package com.veyvolopayli.guutt.presentation.home_screen
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -46,12 +47,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             binding.viewPager.currentItem = position
         }
 
+        val context = requireContext()
+
+
         vm.daysState.observe(viewLifecycleOwner) { days ->
             homeViewPagerAdapter.setFragments(days)
             binding.viewPager.adapter = homeViewPagerAdapter
 
             TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
-                val customTab = CustomTab(requireContext())
+                val customTab = CustomTab(context)
                 val date = vm.daysState.value?.get(position)?.date ?: LocalDate.now()
                 val dayOfWeek = date.dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.getDefault())
                 val dayOfMonth = date.dayOfMonth.toString()
@@ -61,9 +65,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     dayOfMonthText = dayOfMonth
                 }
                 tab.customView = customTab
-                if (tab.isSelected) {
-                    println("${tab.id} is selected")
-                }
             }.attach()
         }
 

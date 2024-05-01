@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ClassesDAO {
-    @Query("SELECT * FROM classobjectwithnote WHERE 'group'=:group")
+    @Query("SELECT * FROM classobjectwithnote WHERE `group`=:group")
     fun getGroupClasses(group: String): Flow<List<ClassObjectWithNote>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

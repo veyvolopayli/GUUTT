@@ -48,13 +48,8 @@ class HomeViewModel @Inject constructor(
             when(resource) {
                 is Resource.Success -> {
                     val classes = resource.data
-                    val datesMap = mutableMapOf<LocalDate, String>()
                     val days = classes.map {
-                        val format = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-                        val date = LocalDate.parse(it.key, format)
-                        val outputFormatter = DateTimeFormatter.ofPattern("d MMM yyyyг.", Locale("ru"))
-                        datesMap[date] = date.format(outputFormatter)
-                        Day(date = date, classes = it.value)
+                        Day(date = it.key, classes = it.value)
                     }
                     _daysState.value = days
                     setToday(days)

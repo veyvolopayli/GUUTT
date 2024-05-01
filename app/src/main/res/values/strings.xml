@@ -32,4 +32,6 @@
     <string name="exam">Экзамен</string>
     <string name="credit_exam">Зачет</string>
     <string name="project">КП</string>
+    <string name="choose_another_group">Выбрать другую группу</string>
+    <string name="open_guu_website">Открыть сайт ГУУ</string>
 </resources>

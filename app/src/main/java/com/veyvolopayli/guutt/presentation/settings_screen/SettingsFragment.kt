@@ -2,6 +2,7 @@ package com.veyvolopayli.guutt.presentation.settings_screen
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -9,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.veyvolopayli.guutt.R
 import com.veyvolopayli.guutt.databinding.FragmentSettingsBinding
 import java.lang.Exception
+import java.lang.IllegalStateException
 
 class SettingsFragment : Fragment(R.layout.fragment_settings) {
     private var binding: FragmentSettingsBinding? = null
@@ -22,8 +24,12 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         binding.chooseGroupButton.isActive = true
 
         binding.chooseGroupButton.setOnClickListener {
-            val navController = Navigation.findNavController(requireActivity(), R.id.main_fragment_container) as? NavController ?: throw Exception("aansdjdfvjidfvuidf")
+            val navController = Navigation.findNavController(
+                requireActivity(),
+                R.id.main_fragment_container
+            ) as? NavController ?: throw IllegalStateException("NavController is null")
             navController.setGraph(R.navigation.authorization_nav_graph)
+            navController.navigate(navController.graph.startDestinationId)
         }
 
         binding.openGuuWebsiteButton.isActive = true

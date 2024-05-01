@@ -9,6 +9,7 @@ import com.veyvolopayli.guutt.databinding.ItemSearchBinding
 import com.veyvolopayli.guutt.domain.model.ClassObject
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 import java.util.Locale
 
 class SearchAdapter : RecyclerView.Adapter<SearchAdapter.LessonViewHolder>(){
@@ -28,12 +29,10 @@ class SearchAdapter : RecyclerView.Adapter<SearchAdapter.LessonViewHolder>(){
     override fun onBindViewHolder(holder: LessonViewHolder, position: Int) {
         val universityClass = classes[position]
 
-        val formattedTime = "${universityClass.start.substring(11, 16)}-${universityClass.end.substring(11, 16)}"
+        val formattedTime = "${universityClass.start.toLocalTime()}-${universityClass.end.toLocalTime()}"
         val lessonTypeText = universityClass.description.event.trim()
 
-        val dateTime = LocalDate.parse(universityClass.start, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"))
         val formatter = DateTimeFormatter.ofPattern("EEEE, d MMMM yyyy", Locale("ru"))
-        val formattedDate = dateTime.format(formatter)
 
         val context = holder.binding.root.context
 
@@ -59,7 +58,7 @@ class SearchAdapter : RecyclerView.Adapter<SearchAdapter.LessonViewHolder>(){
                     professorName.text = universityClass.description.professor
                 }
             time.text = formattedTime
-            date.text = formattedDate
+            date.text = universityClass.start.format(formatter)
         }
     }
 

@@ -14,7 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(R.layout.activity_main) {
+class MainActivity : AppCompatActivity() {
 
     private var binding: ActivityMainBinding? = null
     private val vm: MainViewModel by viewModels()
@@ -24,6 +24,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
         val binding = ActivityMainBinding.inflate(layoutInflater)
         this.binding = binding
+
+        setContentView(binding.root)
 
         val navHostFragment = obtainNavHostFragment()
 

@@ -15,7 +15,7 @@ class DbClassesRepositoryImpl @Inject constructor(
     }
 
     override suspend fun insertClasses(group: String, classes: List<ClassObject>) {
-        val classesWithNotes = classes.map { it.toClassObjectWithNote(group) }
-        dao.insertClasses(classesWithNotes)
+//        val classesWithNotes = classes.map { it.toClassObjectWithNote(group) }
+//        dao.insertClasses(classesWithNotes)
     }
 }

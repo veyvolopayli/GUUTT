@@ -8,16 +8,18 @@ import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 import java.io.IOException
 import java.lang.Exception
+import java.time.LocalDate
 import javax.inject.Inject
 
 class GetClassesUseCase @Inject constructor(
     private val repository: MainRepository
 ) {
-    operator fun invoke(group: String) = flow<Resource<Map<String, List<ClassObject>>>> {
+    operator fun invoke(group: String) = flow<Resource<Map<LocalDate, List<ClassObject>>>> {
         try {
             val classes = repository.getClasses(group)
-            emit(Resource.Success(classes))
+            emit(Resource.Success(classes.toList().drop(classes.size / 2).toMap()))
         } catch (e: Exception) {
+            e.printStackTrace()
             Log.e("ERROR", e.message.toString())
             when (e) {
                 is HttpException -> {
