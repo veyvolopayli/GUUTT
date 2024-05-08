@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/background_bottom_sheet"
+    tools:context=".presentation.class_details_screen.ClassDetailsFragment"
+    android:padding="28dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/PoppinsFontThemeMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/university_class"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <TextView
+            style="@style/PoppinsFontThemeRegular"
+            android:id="@+id/class_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@string/program_engineering"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/PoppinsFontThemeMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/department"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <TextView
+            style="@style/PoppinsFontThemeRegular"
+            android:id="@+id/department"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/department_example"
+            android:textColor="@color/black"
+            android:layout_marginStart="4dp"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/PoppinsFontThemeMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/building"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <TextView
+            style="@style/PoppinsFontThemeRegular"
+            android:id="@+id/building"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/building_example"
+            android:textColor="@color/black"
+            android:layout_marginStart="4dp"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/note_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/PoppinsFontThemeSemiBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textSize="18sp"
+            android:text="Заметка"/>
+        
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/TextInputEdittext"
+                android:id="@+id/note_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:hint="Сделать лабораторную работу №6. Последний день сдачи."/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/created_at_tv"
+            style="@style/PoppinsFontThemeRegular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

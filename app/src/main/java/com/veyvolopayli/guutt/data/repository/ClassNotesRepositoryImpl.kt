@@ -1,5 +1,6 @@
 package com.veyvolopayli.guutt.data.repository
 
+import com.veyvolopayli.guutt.common.NoteId
 import com.veyvolopayli.guutt.data.data_source.NotesDao
 import com.veyvolopayli.guutt.domain.model.Note
 import com.veyvolopayli.guutt.domain.repository.ClassNotesRepository
@@ -13,7 +14,7 @@ class ClassNotesRepositoryImpl @Inject constructor(
         return notesDao.getAllNotes()
     }
 
-    override suspend fun insertNote(note: Note) {
+    override suspend fun insertNote(note: Note): NoteId {
         return notesDao.insertNote(note)
     }
 

@@ -2,12 +2,15 @@ package com.veyvolopayli.guutt.data.data_source
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.veyvolopayli.guutt.domain.model.ClassObjectWithNote
+import androidx.room.TypeConverters
+import com.veyvolopayli.guutt.common.Converters
+import com.veyvolopayli.guutt.domain.model.ClassDBO
 
 @Database(
-    entities = [ClassObjectWithNote::class],
+    entities = [ClassDBO::class],
     version = 1
 )
+@TypeConverters(Converters::class)
 abstract class ClassesDatabase: RoomDatabase() {
     abstract val classesDao: ClassesDAO
 

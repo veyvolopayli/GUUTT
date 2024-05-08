@@ -6,13 +6,22 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.veyvolopayli.guutt.common.Resource
+import com.veyvolopayli.guutt.domain.model.ClassObject
 import com.veyvolopayli.guutt.domain.model.Day
+import com.veyvolopayli.guutt.domain.model.Note
+import com.veyvolopayli.guutt.domain.usecases.GetClassesFromDbUseCase
 import com.veyvolopayli.guutt.domain.usecases.GetClassesUseCase
 import com.veyvolopayli.guutt.domain.usecases.GetCurrentGroupUseCase
+import com.veyvolopayli.guutt.domain.usecases.notes.GetNoteUseCase
+import com.veyvolopayli.guutt.domain.usecases.notes.SaveNoteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 import javax.inject.Inject
@@ -20,7 +29,8 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val getClassesUseCase: GetClassesUseCase,
-    private val getCurrentGroupUseCase: GetCurrentGroupUseCase
+    private val getCurrentGroupUseCase: GetCurrentGroupUseCase,
+    private val getClassesFromDbUseCase: GetClassesFromDbUseCase,
 ) : ViewModel() {
 
     private val _daysState = MutableLiveData<List<Day>>()
@@ -50,7 +60,7 @@ class HomeViewModel @Inject constructor(
                     val classes = resource.data
                     val days = classes.map {
                         Day(date = it.key, classes = it.value)
-                    }
+                    }.drop(classes.size / 2)
                     _daysState.value = days
                     setToday(days)
                 }
@@ -59,6 +69,10 @@ class HomeViewModel @Inject constructor(
                 }
             }
         }.launchIn(viewModelScope)
+    }
+
+    private fun getClassesFromDb(group: String): Flow<List<ClassObject>> {
+        return getClassesFromDbUseCase(group)
     }
 
     private fun setToday(days: List<Day>) {
@@ -72,6 +86,8 @@ class HomeViewModel @Inject constructor(
             group?.let {
                 Log.e("GROUP", it)
                 _groupState.value = it
+                val classesFromDbFlow = getClassesFromDb(group)
+                if (classesFromDbFlow.collect())
                 getClasses(it)
             }
         }.launchIn(viewModelScope)

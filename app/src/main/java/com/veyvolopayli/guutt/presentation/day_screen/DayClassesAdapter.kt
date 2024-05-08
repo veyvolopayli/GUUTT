@@ -11,13 +11,14 @@ import com.veyvolopayli.guutt.R
 import com.veyvolopayli.guutt.databinding.ItemClassBinding
 import com.veyvolopayli.guutt.domain.model.ClassObject
 import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
-class LessonsAdapter() : RecyclerView.Adapter<LessonsAdapter.LessonViewHolder>() {
+class DayClassesAdapter() : RecyclerView.Adapter<DayClassesAdapter.LessonViewHolder>() {
 
     private val classes = mutableListOf<ClassObject>()
 
     private val currentDateTime = LocalDateTime.now()
+
+    var onClick: ((ClassObject) -> Unit)? = null
 
     class LessonViewHolder(val binding: ItemClassBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -31,9 +32,13 @@ class LessonsAdapter() : RecyclerView.Adapter<LessonsAdapter.LessonViewHolder>()
 
     override fun onBindViewHolder(holder: LessonViewHolder, position: Int) {
         val universityClass = classes[position]
-
         val context = holder.binding.root.context
+
         with(holder.binding) {
+            card.setOnClickListener {
+                onClick?.invoke(universityClass)
+            }
+
             classProfessorName.visibility = when {
                 universityClass.description.professor.isNotEmpty() -> View.VISIBLE
                 else -> View.GONE

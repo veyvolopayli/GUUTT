@@ -8,13 +8,9 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.veyvolopayli.guutt.R
-import com.veyvolopayli.guutt.common.parcelable
 import com.veyvolopayli.guutt.databinding.FragmentDayBinding
 import com.veyvolopayli.guutt.domain.model.Day
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.time.format.TextStyle
-import java.util.Locale
+import com.veyvolopayli.guutt.presentation.class_details_screen.ClassDetailsFragment
 
 class DayFragment : Fragment(R.layout.fragment_day) {
     private var binding: FragmentDayBinding? = null
@@ -40,7 +36,11 @@ class DayFragment : Fragment(R.layout.fragment_day) {
         }
 
         if (day != null) {
-            val adapter = LessonsAdapter().also { it.setClasses(day.classes) }
+            val adapter = DayClassesAdapter().also { it.setClasses(day.classes) }
+            adapter.onClick = { classObject ->
+                val detailsFragment = ClassDetailsFragment.newInstance(classObject)
+                detailsFragment.show(parentFragmentManager, "tag")
+            }
             binding.rv.apply {
                 layoutManager = LinearLayoutManager(requireContext())
                 this.adapter = adapter

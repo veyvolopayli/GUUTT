@@ -34,4 +34,10 @@
     <string name="project">КП</string>
     <string name="choose_another_group">Выбрать другую группу</string>
     <string name="open_guu_website">Открыть сайт ГУУ</string>
+    <string name="department">Кафедра:</string>
+    <string name="department_example">Информационных систем</string>
+    <string name="building_example">Бизнес центр</string>
+    <string name="building">Здание:</string>
+    <string name="noty">Заметочка</string>
+    <string name="university_class">Предмет:</string>
 </resources>

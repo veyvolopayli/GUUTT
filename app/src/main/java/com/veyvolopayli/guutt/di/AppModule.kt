@@ -4,10 +4,8 @@ import android.app.Application
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import androidx.room.Room
-import com.google.gson.GsonBuilder
+import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.veyvolopayli.guutt.common.Constants
-import com.veyvolopayli.guutt.common.serializers.LocalDateGsonSerializer
-import com.veyvolopayli.guutt.common.serializers.LocalDateSerializer
 import com.veyvolopayli.guutt.data.data_source.ClassesDatabase
 import com.veyvolopayli.guutt.data.data_source.NotesDatabase
 import com.veyvolopayli.guutt.data.remote.GuuTtApi
@@ -28,11 +26,9 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.Json
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
@@ -40,7 +36,7 @@ import javax.inject.Singleton
 object AppModule {
     @Provides
     @Singleton
-    fun provideDayDB(application: Application): ClassesDatabase {
+    fun provideClassesDB(application: Application): ClassesDatabase {
         return Room.databaseBuilder(
             application,
             ClassesDatabase::class.java,
@@ -73,22 +69,10 @@ object AppModule {
     @Provides
     @Singleton
     fun provideGuuApi(): GuuTtApi {
-        return Retrofit
-            .Builder()
-            .baseUrl(Constants.BASE_URL)
-            .client(OkHttpClient.Builder()
-                .followRedirects(true)
-                .followSslRedirects(true)
-                .build())
-            .addConverterFactory(
-                GsonConverterFactory.create(
-                    GsonBuilder()
-                        .setLenient().disableHtmlEscaping()
-                        .create()
-                )
-            )
-            .build()
-            .create(GuuTtApi::class.java)
+        val okHttpClient = OkHttpClient.Builder().build()
+        val jsonConverterFactory = Json.asConverterFactory("application/json".toMediaType())
+        return Retrofit.Builder().baseUrl(Constants.BASE_URL).client(okHttpClient)
+            .addConverterFactory(jsonConverterFactory).build().create(GuuTtApi::class.java)
     }
 
     @Provides

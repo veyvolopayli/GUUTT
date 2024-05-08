@@ -5,14 +5,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingHorizontal="16dp"
     android:paddingVertical="12dp"
+    android:background="@color/white"
     tools:context=".presentation.sign_in_screen.SignInFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|enterAlways"
+            android:background="@color/white">
+
+            <TextView
+                style="@style/PoppinsFontThemeSemiBold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Добавить группу"
+                android:textColor="@color/black"
+                android:textSize="26sp" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <TextView
+        style="@style/PoppinsFontThemeRegular"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:textSize="16sp"
+        android:layout_marginBottom="18dp"
+        android:text="Введите вашу почту и пароль от ЛК ГУУ" />
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/TextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginBottom="18dp">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -26,6 +58,7 @@
     <com.google.android.material.textfield.TextInputLayout
         style="@style/TextInputLayout"
         android:layout_width="match_parent"
+        android:layout_marginHorizontal="16dp"
         android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -43,6 +76,7 @@
 
     <com.veyvolopayli.guutt.presentation.custom_views.BaseButton
         android:id="@+id/sign_in_btn"
+        android:layout_marginHorizontal="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:text="@string/sign_in" />

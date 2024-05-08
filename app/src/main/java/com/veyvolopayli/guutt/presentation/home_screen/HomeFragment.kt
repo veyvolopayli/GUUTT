@@ -49,7 +49,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         val context = requireContext()
 
-
         vm.daysState.observe(viewLifecycleOwner) { days ->
             homeViewPagerAdapter.setFragments(days)
             binding.viewPager.adapter = homeViewPagerAdapter
@@ -114,9 +113,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun Calendar.updateButton() {
-        val localDate = LocalDate.ofInstant(this.toInstant(), ZoneId.systemDefault())
-        val stringDate = formatDate(localDate)
-        binding?.calendarButton?.text = stringDate
+//        val localDate = LocalDate.ofInstant(this.toInstant(), ZoneId.systemDefault())
+//        val stringDate = formatDate(localDate)
+//        binding?.calendarButton?.text = stringDate
     }
 
     private fun initCalendar() {

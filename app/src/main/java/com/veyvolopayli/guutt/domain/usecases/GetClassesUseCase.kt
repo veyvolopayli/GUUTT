@@ -17,7 +17,7 @@ class GetClassesUseCase @Inject constructor(
     operator fun invoke(group: String) = flow<Resource<Map<LocalDate, List<ClassObject>>>> {
         try {
             val classes = repository.getClasses(group)
-            emit(Resource.Success(classes.toList().drop(classes.size / 2).toMap()))
+            emit(Resource.Success(classes))
         } catch (e: Exception) {
             e.printStackTrace()
             Log.e("ERROR", e.message.toString())
